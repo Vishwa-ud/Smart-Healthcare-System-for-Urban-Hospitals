@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useEffect, useState } from "react";
 import DoctorCard from "../components/DoctorCard";
 import Footer from "../components/Footer";
@@ -8,6 +9,15 @@ import Loading from "../components/Loading";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading } from "../redux/reducers/rootSlice";
 import Empty from "../components/Empty";
+=======
+import React from 'react'
+
+const Doctors = () => {
+  return (
+    <div>Doctors</div>
+  )
+}
+>>>>>>> 32939cfea62ce55d5b9ac84e063d24c682572cb1
 
 const Doctors = () => {
   const [doctors, setDoctors] = useState([]);
