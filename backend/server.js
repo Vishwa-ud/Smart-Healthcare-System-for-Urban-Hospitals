@@ -6,7 +6,7 @@ require("./db/conn");
 const path = require("path");
 
 //file path imports
-const patientRoutes = require('./routes/patientRoutes');
+const patientRoutes = require('./routes/patientRoutes'); 
 const appointmentRoutes = require('./routes/appointmentRoutes');
 const paymentRoutes = require('./routes/paymentRoutes');
 const staffRoutes = require('./routes/hospitalStaffRoutes');
@@ -20,11 +20,11 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-app.use('/api/patients', patientRoutes);
+app.use('/api/patients', patientRoutes); //routes for patient methods
 app.use('/api/appointments', appointmentRoutes);
 app.use('/api/payments', paymentRoutes);
 app.use('/api/staff', staffRoutes); 
-app.use('/api/doctors', doctorRoutes);
+app.use('/api/doctors', doctorRoutes); //routes for doctor methods
 app.use('/api/healthcaremanagers', healthCareManagerRoutes);
 
 

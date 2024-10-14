@@ -7,7 +7,7 @@ const Contact = () => {
     email: "",
     message: "",
   });
-
+//form data
   const inputChange = (e) => {
     const { name, value } = e.target;
     return setFormDetails({
@@ -16,6 +16,7 @@ const Contact = () => {
     });
   };
 
+  
   return (
     <section
       className="register-section flex-center"
