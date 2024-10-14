@@ -72,12 +72,13 @@ const Appointments = () => {
 
           {appointments.length > 0 ? (
             <div className="appointments">
+
               <table>
                 <thead>
                   <tr>
                     <th>S.No</th>
-                    <th>Doctor</th>
-                    <th>Patient</th>
+                    <th>Doctor Name</th>
+                    <th>Patient Name</th>
                     <th>Appointment Date</th>
                     <th>Appointment Time</th>
                     <th>Booking Date</th>
@@ -128,6 +129,7 @@ const Appointments = () => {
                   })}
                 </tbody>
               </table>
+              
             </div>
           ) : (
             <Empty />
