@@ -1,24 +1,33 @@
 # Smart-Healthcare-System-for-Urban-Hospitals
 
-## Priority
+## Structure
 
-1. Patient, Doctor, and HospitalStaff Models (Priority: High)
-Reason: These models form the core entities that interact with the system. Patients and doctors are the main users, and their data (personal information, medical records, etc.) need to be available early on.
-Action: Implement CRUD operations for patients, doctors, and hospital staff. Add endpoints for:
-Creating, updating, and retrieving patient and doctor information.
-Hospital staff access and management.
-2. MedicalRecord Model (Priority: High)
-Reason: Medical records are essential for both patient and doctor interactions. This is closely related to the patient and doctor models, and it needs to be integrated early to handle diagnoses, treatments, etc.
-Action: Create routes to manage medical records. Doctors should be able to add and update records, while patients can view their own records.
-3. Appointment Model (Priority: High)
-Reason: Scheduling and managing appointments is key to the workflow between patients and doctors. It directly ties into patient and doctor interactions, so implementing it early is crucial.
-Action: Implement appointment creation, rescheduling, and cancellation functionality, with role-based access for patients and doctors.
-4. Payment and HospitalService Models (Priority: Medium)
-Reason: Payments are essential for completing the patient-doctor interaction. Integrating payment features will allow the system to handle transactions for hospital services.
-Action: Implement payment processing, linking payments to patients, and adding services through the factory design pattern.
-5. DigitalHealthCard Model (Priority: Medium)
-Reason: The digital health card is a supplementary feature that can be useful for quick patient identification and linking records. This is not urgent but useful after basic functionalities are set.
-Action: Implement the ability to generate and scan digital health cards once the core patient features are complete.
-6. Report and HealthcareManager Models (Priority: Low)
-Reason: Generating and managing reports is more of a back-office feature, which can be implemented once the core patient-doctor interaction features are fully functional.
-Action: Implement report generation and scheduling features after the core functionalities (appointments, payments, etc.) are in place.
+```none
+project-directory/
+│
+├── app.js                     # Main application
+├── models/                    # Contains all models
+│   ├── globalModel.js          # Singleton Global Model
+│   ├── person.js               # Base class for Person
+│   ├── patient.js              # Patient class inherits from Person
+│   ├── doctor.js               # Doctor class inherits from Person
+│   ├── hospitalStaff.js        # HospitalStaff class inherits from Person
+│   ├── healthcareManager.js    # HealthcareManager inherits from Person
+│   ├── appointment.js          # Appointment model
+│   ├── hospitalFactory.js      # Factory for hospital types
+│   └── paymentStrategy.js      # Strategy for payment methods
+│
+├── routes/                    # API endpoints
+│   ├── patientRoutes.js        # Patient-related API routes
+│   ├── doctorRoutes.js         # Doctor-related API routes
+│   ├── hospitalStaffRoutes.js  # HospitalStaff-related API routes
+│   ├── healthcareManagerRoutes.js # HealthcareManager-related routes
+│   ├── appointmentRoutes.js    # Appointment-related API routes
+│   └── paymentRoutes.js        # Payment-related API routes
+│
+└── services/                  # Business logic and services
+    ├── appointmentService.js   # Service handling appointments
+    ├── reportService.js        # Service handling reports
+    └── hospitalService.js      # Service handling hospital services
+
+```
