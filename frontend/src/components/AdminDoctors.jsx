@@ -15,6 +15,7 @@ const AdminDoctors = () => {
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.root);
 
+  //get all doctors
   const getAllDoctors = async (e) => {
     try {
       dispatch(setLoading(true));
@@ -24,6 +25,7 @@ const AdminDoctors = () => {
     } catch (error) {}
   };
 
+  //delete doctor
   const deleteUser = async (userId) => {
     try {
       const confirm = window.confirm("Are you sure you want to delete?");

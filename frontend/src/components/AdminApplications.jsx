@@ -10,6 +10,7 @@ import "../styles/user.css";
 
 axios.defaults.baseURL = process.env.REACT_APP_SERVER_DOMAIN;
 
+//admin accept user request for doctor application
 const AdminApplications = () => {
   const [applications, setApplications] = useState([]);
   const dispatch = useDispatch();
@@ -24,6 +25,7 @@ const AdminApplications = () => {
     } catch (error) {}
   };
 
+  //accept user
   const acceptUser = async (userId) => {
     try {
       const confirm = window.confirm("Are you sure you want to accept?");
@@ -52,6 +54,7 @@ const AdminApplications = () => {
     }
   };
 
+  //reject doctor application
   const deleteUser = async (userId) => {
     try {
       const confirm = window.confirm("Are you sure you want to delete?");
