@@ -3,74 +3,82 @@ const express = require('express');
 const router = express.Router();
 const Patient = require('../models/patient');
 
-// Dummy in-memory storage for patients
-let patients = [];
-
 // Get all patients
-router.get('/', (req, res) => {
-    res.json(patients);
+router.get('/', async (req, res) => {
+    try {
+        const patients = await Patient.find();
+        res.json(patients);
+    } catch (err) {
+        res.status(500).json({ message: 'Error retrieving patients', error: err.message });
+    }
 });
 
 // Get a patient by ID
-router.get('/:patientID', (req, res) => {
-    const patient = patients.find(p => p.patientID === req.params.patientID);
-    if (!patient) {
-        return res.status(404).json({ message: 'Patient not found' });
+router.get('/:patientID', async (req, res) => {
+    try {
+        const patient = await Patient.findOne({ patientID: req.params.patientID });
+        if (!patient) {
+            return res.status(404).json({ message: 'Patient not found' });
+        }
+        res.json(patient);
+    } catch (err) {
+        res.status(500).json({ message: 'Error retrieving patient', error: err.message });
     }
-    res.json(patient);
 });
 
 // Create a new patient
-router.post('/', (req, res) => {
-    const { patientID, name, dob, contactInfo, email, address, medicalHistory } = req.body;
+router.post('/', async (req, res) => {
+    try {
+        const { patientID, name, dob, contactInfo, email, address, medicalHistory } = req.body;
 
-    // Check for existing patient
-    if (patients.some(p => p.patientID === patientID)) {
-        return res.status(400).json({ message: 'Patient with this ID already exists' });
+        // Check if a patient with the given ID already exists
+        if (await Patient.findOne({ patientID })) {
+            return res.status(400).json({ message: 'Patient with this ID already exists' });
+        }
+
+        const newPatient = new Patient({
+            patientID,
+            name,
+            dob,
+            contactInfo,
+            email,
+            address,
+            medicalHistory
+        });
+
+        await newPatient.createAccount();
+        res.status(201).json(newPatient);
+    } catch (err) {
+        res.status(500).json({ message: 'Error creating patient', error: err.message });
     }
-
-    const newPatient = new Patient(patientID, name, dob, contactInfo, email, address, medicalHistory);
-    patients.push(newPatient.createAccount());
-    res.status(201).json(newPatient);
 });
 
 // Update a patient
-router.put('/:patientID', (req, res) => {
-    const patientIndex = patients.findIndex(p => p.patientID === req.params.patientID);
-    if (patientIndex === -1) {
-        return res.status(404).json({ message: 'Patient not found' });
+router.put('/:patientID', async (req, res) => {
+    try {
+        const patient = await Patient.findOne({ patientID: req.params.patientID });
+        if (!patient) {
+            return res.status(404).json({ message: 'Patient not found' });
+        }
+
+        await patient.updateAccount(req.body);
+        res.json(patient);
+    } catch (err) {
+        res.status(500).json({ message: 'Error updating patient', error: err.message });
     }
-
-    // Re-create the patient instance
-    const existingPatientData = patients[patientIndex];
-    const patient = new Patient(
-        existingPatientData.patientID,
-        existingPatientData.name,
-        existingPatientData.dob,
-        existingPatientData.contactInfo,
-        existingPatientData.email,
-        existingPatientData.address,
-        existingPatientData.medicalHistory,
-        existingPatientData.accountStatus
-    );
-
-    // Update patient details using the instance method
-    patient.updateAccount(req.body);
-
-    // Update the in-memory storage
-    patients[patientIndex] = patient;
-    res.json(patient);
 });
 
 // Delete a patient
-router.delete('/:patientID', (req, res) => {
-    const index = patients.findIndex(p => p.patientID === req.params.patientID);
-    if (index === -1) {
-        return res.status(404).json({ message: 'Patient not found' });
+router.delete('/:patientID', async (req, res) => {
+    try {
+        const patient = await Patient.findOneAndDelete({ patientID: req.params.patientID });
+        if (!patient) {
+            return res.status(404).json({ message: 'Patient not found' });
+        }
+        res.json({ message: 'Patient deleted successfully' });
+    } catch (err) {
+        res.status(500).json({ message: 'Error deleting patient', error: err.message });
     }
-
-    patients.splice(index, 1);
-    res.json({ message: 'Patient deleted successfully' });
 });
 
 module.exports = router;
