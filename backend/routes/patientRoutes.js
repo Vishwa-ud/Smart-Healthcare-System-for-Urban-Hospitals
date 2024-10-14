@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const Patient = require('../models/patient');
-
 // Get all patients
 router.get('/', async (req, res) => {
     try {
