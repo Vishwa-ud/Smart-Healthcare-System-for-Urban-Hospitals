@@ -2,6 +2,8 @@
 
 const mongoose = require('mongoose');
 
+//person schema
+//use this to inherit for doctors as well
 const personSchema = new mongoose.Schema({
     name: { type: String, required: true },
     dob: { type: Date, required: true },
