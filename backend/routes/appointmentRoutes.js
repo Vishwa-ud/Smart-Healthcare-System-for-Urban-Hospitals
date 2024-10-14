@@ -51,7 +51,11 @@ router.post('/',validateAppointment,async (req, res) => {
         });
 
         await newAppointment.save();
-        res.status(201).json(newAppointment);
+        // Return success message along with the created appointment
+        res.status(201).json({
+            message: "Appointment created successfully!",
+            appointment: newAppointment // Optionally include the created appointment
+        });
     } catch (err) {
         res.status(500).json({ message: 'Error creating appointment', error: err.message });
     }
