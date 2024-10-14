@@ -1,22 +1,33 @@
+//necessary imports
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
 require("./db/conn");
-const userRouter = require("./routes/userRoutes");
-const doctorRouter = require("./routes/doctorRoutes");
-const appointRouter = require("./routes/appointRoutes");
 const path = require("path");
-const notificationRouter = require("./routes/notificationRouter");
+
+//file path imports
+const patientRoutes = require('./routes/patientRoutes');
+const appointmentRoutes = require('./routes/appointmentRoutes');
+const paymentRoutes = require('./routes/paymentRoutes');
+const staffRoutes = require('./routes/hospitalStaffRoutes');
+const doctorRoutes = require('./routes/doctorRoutes');
+const healthCareManagerRoutes = require('./routes/healthcareManagerRoutes');
+
 
 const app = express();
 const port = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json());
-app.use("/api/user", userRouter);
-app.use("/api/doctor", doctorRouter);
-app.use("/api/appointment", appointRouter);
-app.use("/api/notification", notificationRouter);
+
+app.use('/api/patients', patientRoutes);
+app.use('/api/appointments', appointmentRoutes);
+app.use('/api/payments', paymentRoutes);
+app.use('/api/staff', staffRoutes); 
+app.use('/api/doctors', doctorRoutes);
+app.use('/api/healthcaremanagers', healthCareManagerRoutes);
+
+
 app.use(express.static(path.join(__dirname, "./client/build")));
 
 app.get("*", (req, res) => {

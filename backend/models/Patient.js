@@ -1,29 +1,34 @@
 const mongoose = require('mongoose');
+const Person = require('./person');
 
-const PatientSchema = new mongoose.Schema({
-  patientID: { type: String, required: true, unique: true },
-  name: { type: String, required: true },
-  dateOfBirth: { type: Date, required: true },
-  contactInformation: { type: String, required: true },
-  address: { type: String, required: true },
-  medicalHistory: { type: String },
-  accountStatus: { type: String, default: 'active' }
+const patientSchema = new mongoose.Schema({
+    patientID: { type: String, required: true, unique: true },
+    medicalHistory: { type: [String], default: [] },
+    accountStatus: { type: String, default: 'Active' },
+    appointments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Appointment' }]
 });
 
-PatientSchema.methods.createAccount = function() {
-  // logic for creating account
+// Methods specific to the Patient model
+patientSchema.methods.createAccount = async function () {
+    try {
+        return await this.save();
+    } catch (err) {
+        throw new Error('Error creating account: ' + err.message);
+    }
 };
 
-PatientSchema.methods.updateAccount = function() {
-  // logic for updating account
+patientSchema.methods.updateAccount = async function (updateData) {
+    try {
+        Object.assign(this, updateData);
+        return await this.save();
+    } catch (err) {
+        throw new Error('Error updating account: ' + err.message);
+    }
 };
 
-PatientSchema.methods.viewMedicalRecords = function() {
-  // logic to fetch and return medical records
+patientSchema.methods.viewMedicalRecords = function () {
+    return this.medicalHistory;
 };
 
-PatientSchema.methods.makePayment = function(amount) {
-  // logic for making payment
-};
-
-module.exports = mongoose.model('Patient', PatientSchema);
+const Patient = Person.discriminator('Patient', patientSchema);
+module.exports = Patient;
