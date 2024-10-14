@@ -12,6 +12,7 @@ router.get('/', async (req, res) => {
     }
 });
 
+
 // Get a patient by ID
 router.get('/:patientID', async (req, res) => {
     try {
