@@ -9,6 +9,7 @@ let payments = [];
 router.get('/', (req, res) => {
     res.json(payments);
 });
+
 // Add payment
 router.post('/', (req, res) => {
     const payment = req.body;
