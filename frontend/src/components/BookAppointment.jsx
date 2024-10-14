@@ -23,7 +23,7 @@ const BookAppointment = ({ setModalOpen, ele }) => {
     try {
       await toast.promise(
         axios.post(
-          "/appointment/bookappointment",
+          "/api/appointments/",
           {
             doctorId: ele?.userId?._id,
             date: formDetails.date,
@@ -39,7 +39,7 @@ const BookAppointment = ({ setModalOpen, ele }) => {
         {
           success: "Appointment booked successfully",
           error: "Unable to book appointment",
-          loading: "Booking appointment...",
+          loading: "Booking appointment..",
         }
       );
       setModalOpen(false);
@@ -80,7 +80,7 @@ const BookAppointment = ({ setModalOpen, ele }) => {
                 className="btn form-btn"
                 onClick={bookAppointment}
               >
-                book
+                Book
               </button>
             </form>
           </div>
