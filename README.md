@@ -38,3 +38,37 @@ project-directory/
     -patient
     
 [x] appointments
+
+
+## Testing
+
+### Unit Testing
+
+Implement unit tests for individual components and functions to validate their 
+behavior in isolation.
+
+* updated .env for New Database for testing perpose. 
+```
+DB =mongodb+srv://vishwaud:VishUd@clusterx.tvrnmmh.mongodb.net/unittest?retryWrites=true&w=majority&appName=ClusterX
+```
+* Setting up Jest for unit testing
+* Install Dependencies.
+  ```
+  npm install jest supertest --save-dev
+  npm i jest supertest cross-env
+  ```
+* Update Package.JSON.
+  ```
+  "scripts": {
+    "test": "cross-env NODE_ENV=test jest --testTimeout=5000",
+    "start": "nodemon server.js"
+  },
+  ```
+* Create a Folder Name test. then create a file there called example.test.js.
+* Then Write Unit Test Cases.
+* Run Test cases
+  ```
+  npm test filename.test.js
+  ```
+
+Comprehensive unit tests covering all components.
