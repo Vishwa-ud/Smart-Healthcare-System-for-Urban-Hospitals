@@ -1,17 +1,14 @@
-// models/patient.js
 const mongoose = require('mongoose');
+const Person = require('./person');
 
 const patientSchema = new mongoose.Schema({
     patientID: { type: String, required: true, unique: true },
-    name: { type: String, required: true },
-    dob: { type: Date, required: true },
-    contactInfo: { type: String, required: true },
-    email: { type: String, required: true },
-    address: { type: String, required: true },
     medicalHistory: { type: [String], default: [] },
-    accountStatus: { type: String, default: 'Active' }
+    accountStatus: { type: String, default: 'Active' },
+    appointments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Appointment' }]
 });
 
+// Methods specific to the Patient model
 patientSchema.methods.createAccount = async function () {
     try {
         return await this.save();
@@ -33,5 +30,5 @@ patientSchema.methods.viewMedicalRecords = function () {
     return this.medicalHistory;
 };
 
-const Patient = mongoose.model('Patient', patientSchema);
+const Patient = Person.discriminator('Patient', patientSchema);
 module.exports = Patient;
