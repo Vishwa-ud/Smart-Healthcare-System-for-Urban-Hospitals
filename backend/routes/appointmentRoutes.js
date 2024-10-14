@@ -8,7 +8,7 @@ const validateAppointment = (req, res, next) => {
     const { appointmentID, appointmentDate, patientID, doctorID, service } = req.body;
 
     if (!appointmentID || !appointmentDate || !patientID || !doctorID || !service) {
-        return res.status(400).json({ message: 'Missing required fields' });
+        return res.status(400).json({ message: 'Missing required fields.' });
     }
 
     next();
@@ -20,7 +20,7 @@ router.get('/', async (req, res) => {
         const appointments = await Appointment.find();
         res.json(appointments);
     } catch (err) {
-        res.status(500).json({ message: 'Error retrieving appointments', error: err.message });
+        res.status(500).json({ message: 'Error retrieving appointments.', error: err.message });
     }
 });
 
@@ -29,11 +29,11 @@ router.get('/:appointmentID',  async (req, res) => {
     try {
         const appointment = await Appointment.findOne({ appointmentID: req.params.appointmentID });
         if (!appointment) {
-            return res.status(404).json({ message: 'Appointment not found' });
+            return res.status(404).json({ message: 'Appointment not found.' });
         }
         res.json(appointment);
     } catch (err) {
-        res.status(500).json({ message: 'Error retrieving appointment', error: err.message });
+        res.status(500).json({ message: 'Error retrieving appointment.', error: err.message });
     }
 });
 
@@ -57,7 +57,7 @@ router.post('/',validateAppointment,async (req, res) => {
             appointment: newAppointment // Optionally include the created appointment
         });
     } catch (err) {
-        res.status(500).json({ message: 'Error creating appointment', error: err.message });
+        res.status(500).json({ message: 'Error creating appointment.', error: err.message });
     }
 });
 
@@ -66,7 +66,7 @@ router.put('/:appointmentID',validateAppointment,  async (req, res) => {
     try {
         const appointment = await Appointment.findOne({ appointmentID: req.params.appointmentID });
         if (!appointment) {
-            return res.status(404).json({ message: 'Appointment not found' });
+            return res.status(404).json({ message: 'Appointment not found.' });
         }
         req.body.appointmentID = req.params.appointmentID;
 
@@ -75,7 +75,7 @@ router.put('/:appointmentID',validateAppointment,  async (req, res) => {
         await appointment.save();
         res.json(appointment);
     } catch (err) {
-        res.status(500).json({ message: 'Error updating appointment', error: err.message });
+        res.status(500).json({ message: 'Error updating appointment.', error: err.message });
     }
 });
 
@@ -86,7 +86,7 @@ router.delete('/:appointmentID', async (req, res) => {
         if (!appointment) {
             return res.status(404).json({ message: 'Appointment not found' });
         }
-        res.json({ message: 'Appointment canceled successfully' });
+        res.json({ message: 'Appointment canceled successfully.' });
     } catch (err) {
         res.status(500).json({ message: 'Error canceling appointment', error: err.message });
     }
@@ -99,12 +99,12 @@ router.patch('/:appointmentID/status', async (req, res) => {
         const validStatuses = ['Scheduled', 'Completed', 'Canceled', 'Rescheduled', 'Pending', 'NoShow'];
 
         if (!validStatuses.includes(status)) {
-            return res.status(400).json({ message: 'Invalid status' });
+            return res.status(400).json({ message: 'Invalid status.' });
         }
 
         const appointment = await Appointment.findOne({ appointmentID: req.params.appointmentID });
         if (!appointment) {
-            return res.status(404).json({ message: 'Appointment not found' });
+            return res.status(404).json({ message: 'Appointment not found.' });
         }
 
         appointment.status = status; // Update the status
