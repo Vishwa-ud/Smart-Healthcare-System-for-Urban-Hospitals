@@ -3,7 +3,8 @@ const express = require('express');
 const router = express.Router();
 const Doctor = require('../models/doctor');
 
-// Get all doctors
+// Get all doctors method
+//route to get all doctors from db
 router.get('/', async (req, res) => {
     try {
         const doctors = await Doctor.find();
@@ -14,6 +15,7 @@ router.get('/', async (req, res) => {
 });
 
 // Get a doctor by ID
+//route to fetch a specific doctor
 router.get('/:doctorID', async (req, res) => {
     try {
         const doctor = await Doctor.findOne({ doctorID: req.params.doctorID });
@@ -27,6 +29,7 @@ router.get('/:doctorID', async (req, res) => {
 });
 
 // Create a new doctor
+//route to create a new doctor
 router.post('/', async (req, res) => {
     try {
         const { doctorID, name, dob, specialization, contactInfo, email, address } = req.body;
@@ -54,6 +57,7 @@ router.post('/', async (req, res) => {
 });
 
 // Update a doctor
+//route to update doctor details
 router.put('/:doctorID', async (req, res) => {
     try {
         const doctor = await Doctor.findOne({ doctorID: req.params.doctorID });
@@ -70,6 +74,7 @@ router.put('/:doctorID', async (req, res) => {
 });
 
 // Delete a doctor
+//route to delete a specific doctor
 router.delete('/:doctorID', async (req, res) => {
     try {
         const doctor = await Doctor.findOneAndDelete({ doctorID: req.params.doctorID });
