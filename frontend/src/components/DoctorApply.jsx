@@ -5,6 +5,7 @@ import axios from "axios";
 
 axios.defaults.baseURL = process.env.REACT_APP_SERVER_DOMAIN;
 
+// form for doctor application request
 function DoctorApply() {
   const [formDetails, setFormDetails] = useState({
     specialization: "",
@@ -21,6 +22,7 @@ function DoctorApply() {
     });
   };
 
+  //form submission
   const formSubmit = async (e) => {
     try {
       e.preventDefault();
@@ -57,6 +59,8 @@ function DoctorApply() {
     }
   };
 
+
+  //display form
   return (
     <section className="apply-doctor-section flex-center">
       <div className="apply-doctor-container flex-center">
