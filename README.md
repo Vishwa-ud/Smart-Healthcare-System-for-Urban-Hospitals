@@ -31,3 +31,10 @@ project-directory/
     └── hospitalService.js      # Service handling hospital services
 
 ```
+
+[x] people
+    -doctor
+    -staffmember
+    -patient
+    
+[x] appointments

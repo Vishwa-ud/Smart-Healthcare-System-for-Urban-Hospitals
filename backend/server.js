@@ -11,6 +11,7 @@ const appointmentRoutes = require('./routes/appointmentRoutes');
 const paymentRoutes = require('./routes/paymentRoutes');
 const staffRoutes = require('./routes/hospitalStaffRoutes');
 const doctorRoutes = require('./routes/doctorRoutes');
+const healthCareManagerRoutes = require('./routes/healthcareManagerRoutes');
 
 
 const app = express();
@@ -24,6 +25,7 @@ app.use('/api/appointments', appointmentRoutes);
 app.use('/api/payments', paymentRoutes);
 app.use('/api/staff', staffRoutes); 
 app.use('/api/doctors', doctorRoutes);
+app.use('/api/healthcaremanagers', healthCareManagerRoutes);
 
 
 app.use(express.static(path.join(__dirname, "./client/build")));

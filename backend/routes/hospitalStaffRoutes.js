@@ -28,7 +28,7 @@ router.get('/:staffID', async (req, res) => {
 // Create a new hospital staff member
 router.post('/', async (req, res) => {
     try {
-        const { staffID, name, dob, role, department, contactInfo, email, address } = req.body;
+        const { staffID, name, dob, staffRole, department, contactInfo, email, address } = req.body;
 
         // Check if staff member with the given ID already exists
         if (await HospitalStaff.findOne({ staffID })) {
@@ -39,7 +39,7 @@ router.post('/', async (req, res) => {
             staffID,
             name,
             dob,
-            role,
+            staffRole,
             department,
             contactInfo,
             email,
