@@ -25,7 +25,6 @@ router.get('/:staffID', async (req, res) => {
     }
 });
 
-
 // Create a new hospital staff member
 router.post('/', async (req, res) => {
     try {
