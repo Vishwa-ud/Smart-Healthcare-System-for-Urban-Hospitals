@@ -1,29 +1,33 @@
-const mongoose = require('mongoose');
 
-const PatientSchema = new mongoose.Schema({
-  patientID: { type: String, required: true, unique: true },
-  name: { type: String, required: true },
-  dateOfBirth: { type: Date, required: true },
-  contactInformation: { type: String, required: true },
-  address: { type: String, required: true },
-  medicalHistory: { type: String },
-  accountStatus: { type: String, default: 'active' }
-});
+// patient.js
+class Patient {
+    constructor(patientID, name, dob, contactInfo, email, address, medicalHistory, accountStatus) {
+        this.patientID = patientID;
+        this.name = name;
+        this.dob = dob;
+        this.contactInfo = contactInfo;
+        this.email = email;
+        this.address = address;
+        this.medicalHistory = medicalHistory;
+        this.accountStatus = accountStatus;
+        this.appointments = [];
+    }
 
-PatientSchema.methods.createAccount = function() {
-  // logic for creating account
-};
+    createAccount() {
+        // Logic for creating account
+    }
 
-PatientSchema.methods.updateAccount = function() {
-  // logic for updating account
-};
+    updateAccount() {
+        // Logic for updating account
+    }
 
-PatientSchema.methods.viewMedicalRecords = function() {
-  // logic to fetch and return medical records
-};
+    viewMedicalRecords() {
+        // Logic for viewing medical records
+    }
 
-PatientSchema.methods.makePayment = function(amount) {
-  // logic for making payment
-};
+    managePayment(paymentStrategy) {
+        paymentStrategy.processPayment();
+    }
+}
 
-module.exports = mongoose.model('Patient', PatientSchema);
+module.exports = Patient;
