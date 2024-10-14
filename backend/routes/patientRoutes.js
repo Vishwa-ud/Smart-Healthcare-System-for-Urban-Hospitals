@@ -36,13 +36,29 @@ router.post('/', (req, res) => {
 
 // Update a patient
 router.put('/:patientID', (req, res) => {
-    const patient = patients.find(p => p.patientID === req.params.patientID);
-    if (!patient) {
+    const patientIndex = patients.findIndex(p => p.patientID === req.params.patientID);
+    if (patientIndex === -1) {
         return res.status(404).json({ message: 'Patient not found' });
     }
 
-    // Update patient details
+    // Re-create the patient instance
+    const existingPatientData = patients[patientIndex];
+    const patient = new Patient(
+        existingPatientData.patientID,
+        existingPatientData.name,
+        existingPatientData.dob,
+        existingPatientData.contactInfo,
+        existingPatientData.email,
+        existingPatientData.address,
+        existingPatientData.medicalHistory,
+        existingPatientData.accountStatus
+    );
+
+    // Update patient details using the instance method
     patient.updateAccount(req.body);
+
+    // Update the in-memory storage
+    patients[patientIndex] = patient;
     res.json(patient);
 });
 
