@@ -20,7 +20,11 @@
     "react-scripts": "5.0.1",
     "react-spinners": "^0.13.8",
     "react-time-picker": "^5.2.0",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "shadergradient": "^1.2.14",
+    "three": "0.154.0",
+    "framer-motion": "^11.3.31",
+    "@react-three/fiber": "^8.17.6"
   },
   "scripts": {
     "dev": "react-scripts start",
